@@ -3,6 +3,7 @@
 # Based on user input, this script generates a plot of the Mandelbrot set, and
 # is optimized to take high resolutions (e.g. 3000 x 3000). The script makes
 # use of np.meshgrid, np.where, and np array operations for optimization.
+# Recommended number of iterations is 100.
 
 # Import Statements
 
@@ -40,7 +41,7 @@ z = rr + ii*1j
 
 z = mandelbrot_set_highres(z, iterations)
 
+plt.tick_params(axis="both", which="both", bottom="off", left="off", labelleft="off", labelbottom="off")
 plt.imshow(z, cmap="hot")
 plt.savefig("mandelbrot.pdf")
 plt.show()
-
