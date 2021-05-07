@@ -1,18 +1,13 @@
-# Mandelbrot Generator
+# Mandelbrot Generator by Dan Estrin
 #
 # Based on user input, this script generates a plot of the Mandelbrot set, and
 # is optimized to take high resolutions (e.g. 3000 x 3000). The script makes
 # use of np.meshgrid, np.where, and np array operations for optimization.
 # Recommended number of iterations is 100.
 
-# Import Statements
-
 import numpy as np
 import matplotlib.pyplot as plt
-
-# This function generates the Mandelbrot set which is then plotted.
-# It makes use of numpy array operations and np.where in order to save time
-# when computing high resolutions rather than nested for loops.
+import time
 
 def mandelbrot_set_highres(c, n):
     points = np.zeros([r.size, i.size])
@@ -29,19 +24,50 @@ def mandelbrot_set_highres(c, n):
 iterations = int(input("Enter max number of iterations: "))
 gridsize = int(input("Enter square resolution: "))
 
-# Since the doman and range has length 3, we divide 3 by the resolution for the
-# number of points.
+# Example plots with different shapes
+# Modifiying the iteration number will yield different designs
 
-length = 3/gridsize
-r = np.arange(-2, 1, length)
-i = np.arange(-1.5, 1.5, length)
+# Full Mandelbrot
+#x_min = -2
+#x_max = 1
+#y_min = -1.5
+#y_max = 1.5
+#scale = 1
+
+# Trees
+#x_min = -54125
+#x_max = -53125
+#y_min = -62225
+#y_max = -61225
+#scale = 100000
+
+# Mini-Mandelbrot - the shape repeats itself when zoomed in 100000x (needs 1000+ iterations)
+#x_min = -52787
+#x_max = -52777
+#y_min = -62612
+#y_max = -62602
+#scale = 100000
+
+x_min = -2
+x_max = 1
+y_min = -1.5
+y_max = 1.5
+scale = 1
+
+r = np.linspace(x_min, x_max, gridsize) / scale
+i = np.linspace(y_min, y_max, gridsize) / scale
 
 rr, ii = np.meshgrid(r, i)
 z = rr + ii*1j
 
+init_time = time.time()
 z = mandelbrot_set_highres(z, iterations)
+end_time = time.time()
 
-plt.tick_params(axis="both", which="both", bottom="off", left="off", labelleft="off", labelbottom="off")
-plt.imshow(z, cmap="hot")
-plt.savefig("mandelbrot.pdf")
+print("Evaluation time: " + str(end_time - init_time) + " seconds")
+
+plt.axis("off")
+# change cmap for different coloring
+plt.imshow(z, cmap="magma")
+plt.savefig("mandelbrot.png", bbox_inches = "tight", pad_inches = 0, dpi=200)
 plt.show()
