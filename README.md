@@ -9,7 +9,7 @@ The Python script is run through the command line `python3 mandelbrot.py` and ta
 (100 iterations, 3000 x 3000, ~27 seconds to generate)
 ![](samples/1.png)
 
-(100 iterations, 3000 x 3000, ~275 seconds to generate)
+(1000 iterations, 3000 x 3000, ~275 seconds to generate)
 ![](samples/2.png)
 
 (1000 iterations, 1000 x 1000, ~29 seconds to generate)
